@@ -13,7 +13,6 @@ namespace UserService.Controllers
         public IActionResult GetVersion()
         {
             VersionViewModel version = new VersionViewModel();
-            version.Version = "1.0.0.1";
 
             string json = HttpResponse.Success(version);
             return Ok(json);
