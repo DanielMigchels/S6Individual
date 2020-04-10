@@ -13,6 +13,10 @@ namespace UserService
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine("Creates the database if not exists");
+            UserServiceContext.current = new UserServiceContext();
+            UserServiceContext.current.Database.EnsureCreated();
+
             CreateHostBuilder(args).Build().Run();
         }
 
