@@ -13,36 +13,34 @@ namespace UserService.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        // GET: api/User
-        [HttpGet]
-        public IEnumerable<User> Get()
-        {
-            return new UserRepository().Get();
-        }
+        UserRepository userRepository = new UserRepository();
 
         // GET: api/User/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public User Get(int id)
         {
-            return "value";
+            return userRepository.Get(id);
         }
 
         // POST: api/User
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] User value)
         {
+            userRepository.Post(value);
         }
 
         // PUT: api/User/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] User value)
         {
+            userRepository.Put(id, value);
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            userRepository.Delete(id);
         }
     }
 }

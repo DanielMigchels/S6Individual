@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MySql.Data.EntityFrameworkCore.Extensions;
+using System.Data.SQLite;
 using UserService.Models;
 
 namespace UserService
@@ -12,7 +12,7 @@ namespace UserService
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySQL("Server=studmysql01.fhict.local;Uid=dbi387743;Database=dbi387743;Pwd=database123");
+            optionsBuilder.UseSqlite("Data Source=userservice.db;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -21,7 +21,7 @@ namespace UserService
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.HasKey(e => e.UUID);
+                entity.HasKey(e => e.Id);
                 entity.Property(e => e.Username).IsRequired();
             });
         }

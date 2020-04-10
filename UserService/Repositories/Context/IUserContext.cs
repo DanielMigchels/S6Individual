@@ -9,7 +9,7 @@ namespace UserService.Repositories
     interface IUserContext
     {
         public IEnumerable<User> Get();
-        public string Get(int id);
+        public User Get(int id);
         public void Post(User value);
         public void Put(int id, User value);
         public void Delete(int id);
