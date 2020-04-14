@@ -16,6 +16,10 @@ namespace UserService
             Console.WriteLine("Creates the database if not exists");
             UserServiceContext.current = new UserServiceContext();
             UserServiceContext.current.Database.EnsureCreated();
+            
+            Console.WriteLine("Initialize RabbitMQ");
+            RabbitMQ.Consumer rabbitMQ = new RabbitMQ.Consumer();
+            rabbitMQ.Setup();
 
             CreateHostBuilder(args).Build().Run();
         }
