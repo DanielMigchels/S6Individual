@@ -6,7 +6,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "userservice-deployment",
+          "Host": "userservice-service",
           "Port": 80
         }
       ],
