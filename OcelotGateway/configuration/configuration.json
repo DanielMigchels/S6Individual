@@ -2,7 +2,7 @@
   "ReRoutes": [
     //User api config
     {
-      "DownstreamPathTemplate": "/api/user/{everything}",
+      "DownstreamPathTemplate": "/api/user/{user}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -10,7 +10,7 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/api/user/{everything}",
+      "UpstreamPathTemplate": "/api/user/{user}",
       "UpstreamHttpMethod": [
         "GET",
         "POST",
@@ -19,7 +19,7 @@
       ]
     },
     {
-      "DownstreamPathTemplate": "/api/test/{everything}",
+      "DownstreamPathTemplate": "/",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -27,7 +27,24 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/api/test/{everything}",
+      "UpstreamPathTemplate": "/api/test/",
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/{rss}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "nu.nl",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/nu/{rss}",
       "UpstreamHttpMethod": [
         "GET",
         "POST",
@@ -37,12 +54,10 @@
     }
   ],
   "GlobalConfiguration": {
-    "AdministrationPath":  "/administration"
   },
   "Logging": {
     "LogLevel": {
       "Default": "Warning"
     }
-  },
-  "AllowedHosts": "*"
+  }
 }
