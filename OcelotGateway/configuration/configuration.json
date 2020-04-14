@@ -18,16 +18,17 @@
         "DELETE"
       ]
     },
+    //Site api config
     {
-      "DownstreamPathTemplate": "/",
+      "DownstreamPathTemplate": "/api/site/{site}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "ip.jsontest.com",
+          "Host": "siteservice-service",
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/api/test/",
+      "UpstreamPathTemplate": "/api/site/{site}",
       "UpstreamHttpMethod": [
         "GET",
         "POST",
@@ -35,16 +36,17 @@
         "DELETE"
       ]
     },
+    //Article api config
     {
-      "DownstreamPathTemplate": "/{rss}",
+      "DownstreamPathTemplate": "/api/article/{site}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "nu.nl",
+          "Host": "articleservice-service",
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/api/nu/{rss}",
+      "UpstreamPathTemplate": "/api/article/{site}",
       "UpstreamHttpMethod": [
         "GET",
         "POST",
