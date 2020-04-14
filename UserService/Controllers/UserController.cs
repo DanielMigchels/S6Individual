@@ -36,7 +36,7 @@ namespace UserService.Controllers
             userRepository.Put(id, value);
         }
 
-        // DELETE: api/ApiWithActions/5
+        // DELETE: api/User/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
