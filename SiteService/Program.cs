@@ -17,6 +17,10 @@ namespace SiteService
             SiteServiceContext.current = new SiteServiceContext();
             SiteServiceContext.current.Database.EnsureCreated();
 
+            Console.WriteLine("Initialize RabbitMQ");
+            RabbitMQ.Consumer.current = new RabbitMQ.Consumer();
+            RabbitMQ.Consumer.current.Setup();
+            
             CreateHostBuilder(args).Build().Run();
         }
 

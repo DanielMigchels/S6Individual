@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RabbitMQ.Client;
 
-namespace UserService.RabbitMQ
+namespace ArticleSyndicationService.RabbitMQ
 {
     public class MessageReceiver : DefaultBasicConsumer
     {

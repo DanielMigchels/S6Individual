@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UserService.RabbitMQ
+namespace ArticleSyndicationService.RabbitMQ
 {
     public class Consumer
     {
@@ -30,17 +30,17 @@ namespace UserService.RabbitMQ
             var connection = connectionFactory.CreateConnection();
             var channel = connection.CreateModel();
 
-            channel.ExchangeDeclare("user.exchange", ExchangeType.Direct);
+            channel.ExchangeDeclare("articlesyndication.exchange", ExchangeType.Direct);
             Console.WriteLine("Creating Exchange");
 
-            channel.QueueDeclare("user.queue", true, false, false, null);
+            channel.QueueDeclare("articlesyndication.queue", true, false, false, null);
             Console.WriteLine("Creating Queue");
 
-            channel.QueueBind("user.queue", "user.exchange", "key");
+            channel.QueueBind("articlesyndication.queue", "articlesyndication.exchange", "key");
 
             channel.BasicQos(0, 1, false);
             MessageReceiver messageReceiver = new MessageReceiver(channel);
-            channel.BasicConsume("user.queue", false, messageReceiver);
+            channel.BasicConsume("articlesyndication.queue", false, messageReceiver);
         }
 
         public void Send(string exchange, string data)

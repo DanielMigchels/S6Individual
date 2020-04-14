@@ -1,11 +1,11 @@
-﻿using System;
+﻿using RabbitMQ.Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RabbitMQ.Client;
 
-namespace UserService.RabbitMQ
+namespace SiteService.RabbitMQ
 {
     public class MessageReceiver : DefaultBasicConsumer
     {
@@ -25,7 +25,7 @@ namespace UserService.RabbitMQ
             Console.WriteLine(string.Concat("Consumer tag: ", consumerTag));
             Console.WriteLine(string.Concat("Delivery tag: ", deliveryTag));
             Console.WriteLine(string.Concat("Routing tag: ", routingKey));
-            Console.WriteLine(string.Concat("Message: ", message));
+            Console.WriteLine(string.Concat("Message: ", Encoding.UTF8.GetString(body)));
 
             RabbitMqMessage messageobject = Newtonsoft.Json.JsonConvert.DeserializeObject<RabbitMqMessage>(message);
 
