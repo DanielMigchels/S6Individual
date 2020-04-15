@@ -2,7 +2,7 @@
   "ReRoutes": [
     //User api config
     {
-      "DownstreamPathTemplate": "/api/user/{user}",
+      "DownstreamPathTemplate": "/user/{user}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -10,7 +10,7 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/api/user/{user}",
+      "UpstreamPathTemplate": "/user/{user}",
       "UpstreamHttpMethod": [
         "GET",
         "POST",
@@ -20,7 +20,7 @@
     },
     //Site api config
     {
-      "DownstreamPathTemplate": "/api/site/{site}",
+      "DownstreamPathTemplate": "/site/{site}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -28,7 +28,7 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/api/site/{site}",
+      "UpstreamPathTemplate": "/site/{site}",
       "UpstreamHttpMethod": [
         "GET",
         "POST",
@@ -38,7 +38,7 @@
     },
     //Article api config
     {
-      "DownstreamPathTemplate": "/api/article/{site}",
+      "DownstreamPathTemplate": "/article/{site}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -46,7 +46,25 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/api/article/{site}",
+      "UpstreamPathTemplate": "/article/{site}",
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+      ]
+    },
+    //Vote api config
+    {
+      "DownstreamPathTemplate": "/vote/{site}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "voteservice-service",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/vote/{site}",
       "UpstreamHttpMethod": [
         "GET",
         "POST",
