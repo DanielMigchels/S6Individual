@@ -9,12 +9,12 @@ namespace SiteService
 #if DEBUG
         string MySQL_Server = "127.0.0.1";
 #else
-        string MySQL_Server = "mysql";
+        string MySQL_Server = "site-mysql";
 #endif
 
-        string MySQL_Database = "admin";
-        string MySQL_Uid = "admin";
-        string MySQL_Password = "admin";
+        string MySQL_Database = "site";
+        string MySQL_Uid = "site";
+        string MySQL_Password = "site";
 
         public static SiteServiceContext current;
 

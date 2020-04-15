@@ -12,12 +12,12 @@ namespace ArticleService
 #if DEBUG
         string MySQL_Server = "127.0.0.1";
 #else
-        string MySQL_Server = "mysql";
+        string MySQL_Server = "article-mysql";
 #endif
 
-        string MySQL_Database = "admin";
-        string MySQL_Uid = "admin";
-        string MySQL_Password = "admin";
+        string MySQL_Database = "article";
+        string MySQL_Uid = "article";
+        string MySQL_Password = "article";
 
         public static ArticleServiceContext current;
 
