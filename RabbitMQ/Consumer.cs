@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VoteService.RabbitMQ
+namespace RabbitMQ
 {
     public class Consumer
     {
@@ -18,7 +18,7 @@ namespace VoteService.RabbitMQ
 #else
         private const string HostName = "rabbitmq";
 #endif
-        public void Setup()
+        public void Setup(string serviceName)
         {
             ConnectionFactory connectionFactory = new ConnectionFactory
             {
@@ -30,17 +30,17 @@ namespace VoteService.RabbitMQ
             var connection = connectionFactory.CreateConnection();
             var channel = connection.CreateModel();
 
-            channel.ExchangeDeclare("vote.exchange", ExchangeType.Direct);
+            channel.ExchangeDeclare(serviceName +".exchange", ExchangeType.Direct);
             Console.WriteLine("Creating Exchange");
 
-            channel.QueueDeclare("vote.queue", true, false, false, null);
+            channel.QueueDeclare(serviceName +".queue", true, false, false, null);
             Console.WriteLine("Creating Queue");
 
-            channel.QueueBind("vote.queue", "vote.exchange", "key");
+            channel.QueueBind(serviceName + ".queue", serviceName+".exchange", "key");
 
             channel.BasicQos(0, 1, false);
             MessageReceiver messageReceiver = new MessageReceiver(channel);
-            channel.BasicConsume("vote.queue", false, messageReceiver);
+            channel.BasicConsume(serviceName + ".queue", false, messageReceiver);
         }
 
         public void Send(string exchange, string data)

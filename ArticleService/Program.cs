@@ -19,7 +19,7 @@ namespace ArticleService
 
             Console.WriteLine("Initialize RabbitMQ");
             RabbitMQ.Consumer.current = new RabbitMQ.Consumer();
-            RabbitMQ.Consumer.current.Setup();
+            RabbitMQ.Consumer.current.Setup("Article");
 
             CreateHostBuilder(args).Build().Run();
         }

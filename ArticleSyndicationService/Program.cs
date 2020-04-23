@@ -15,7 +15,7 @@ namespace ArticleSyndicationService
         {
             Console.WriteLine("Initialize RabbitMQ");
             RabbitMQ.Consumer.current = new RabbitMQ.Consumer();
-            RabbitMQ.Consumer.current.Setup();
+            RabbitMQ.Consumer.current.Setup("ArticleSyndication");
 
             CreateHostBuilder(args).Build().Run();
         }
