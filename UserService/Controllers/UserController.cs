@@ -49,10 +49,11 @@ namespace UserService.Controllers
         [HttpPost("register")]
         public IActionResult Register([FromBody] User value)
         {
+            User user;
             try
             {
-                User user = userRepository.Get(value.Username).Copy();
-                BadRequest("User already exists.");
+                user = userRepository.Get(value.Username).Copy();
+                return BadRequest("User already exists.");
             }
             catch { }
 
@@ -60,7 +61,10 @@ namespace UserService.Controllers
 
             userRepository.Post(value);
 
-            return Ok();
+            user = userRepository.Get(value.Username).Copy();
+            user.Password = string.Empty;
+
+            return Ok(user);
         }
     }
 }
