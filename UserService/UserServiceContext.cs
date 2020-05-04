@@ -35,6 +35,7 @@ namespace UserService
             {
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Username).IsRequired();
+                entity.Property(e => e.Password).IsRequired();
             });
         }
     }
