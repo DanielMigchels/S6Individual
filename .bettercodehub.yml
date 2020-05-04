@@ -8,4 +8,4 @@ languages:
       - .*Context\.cs
   test:
     include:
-      - *test\.cs
+      - .*test\.cs
