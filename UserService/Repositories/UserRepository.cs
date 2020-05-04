@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UserService.Models;
+using Models;
 
 namespace UserService.Repositories
 {
@@ -10,8 +10,8 @@ namespace UserService.Repositories
     {
         IUserContext context = new Context.UserService.UserContext();
 
-        public IEnumerable<User> Get() => context.Get();
         public User Get(int id) => context.Get(id);
+        public User Get(string username) => context.Get(username);
         public void Post(User value) => context.Post(value);
         public void Put(int id, User value) => context.Put(id, value);
         public void Delete(int id) => context.Delete(id);

@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using UserService.Models;
+using Microsoft.IdentityModel.Tokens;
+using Models;
+using Shared.Jwt;
 using UserService.Repositories;
+using UserService.ViewModel;
 
 namespace UserService.Controllers
 {
@@ -15,32 +19,29 @@ namespace UserService.Controllers
     {
         UserRepository userRepository = new UserRepository();
 
-        // GET: api/User/5
-        [HttpGet("{id}", Name = "Get")]
-        public User Get(int id)
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] LoginViewModel value)
         {
-            return userRepository.Get(id);
+            User user = userRepository.Get(value.username);
+
+            if (Utilities.Pbkdf2Utility.ValidatePassword(value.password, user.Password))
+            {
+                string jwt = JwtUtility.GenerateJwt(user);
+
+                return Ok(jwt);
+            }
+
+            return Forbid();
         }
 
-        // POST: api/User
-        [HttpPost]
-        public void Post([FromBody] User value)
+        [HttpPost("register")]
+        public IActionResult Register([FromBody] User value)
         {
+            value.Password = Utilities.Pbkdf2Utility.HashPassword(value.Password);
+
             userRepository.Post(value);
-        }
 
-        // PUT: api/User/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] User value)
-        {
-            userRepository.Put(id, value);
-        }
-
-        // DELETE: api/User/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-            userRepository.Delete(id);
+            return Ok();
         }
     }
 }

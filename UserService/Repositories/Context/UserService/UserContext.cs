@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UserService.Models;
+using Models;
 
 namespace UserService.Repositories.Context.UserService
 {
@@ -15,14 +15,13 @@ namespace UserService.Repositories.Context.UserService
             UserServiceContext.current.SaveChanges();
         }
 
-        public IEnumerable<User> Get()
-        {
-            return UserServiceContext.current.User;
-        }
-
         public User Get(int id)
         {
             return UserServiceContext.current.User.Single(p => p.Id == id);
+        }
+        public User Get(string username)
+        {
+            return UserServiceContext.current.User.Single(p => p.Username == username);
         }
 
         public void Post(User value)
