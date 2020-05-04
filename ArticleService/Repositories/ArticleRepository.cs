@@ -1,4 +1,4 @@
-﻿using ArticleService.Models;
+﻿using Models;
 using ArticleService.Repositories.Context;
 using System;
 using System.Collections.Generic;

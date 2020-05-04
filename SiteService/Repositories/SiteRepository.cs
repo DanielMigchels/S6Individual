@@ -1,4 +1,4 @@
-﻿using SiteService.Models;
+﻿using Models;
 using SiteService.Repositories.Context;
 using System;
 using System.Collections.Generic;

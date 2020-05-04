@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Shared.RabbitMQ;
 
 namespace ArticleSyndicationService
 {
@@ -14,8 +15,8 @@ namespace ArticleSyndicationService
         public static void Main(string[] args)
         {
             Console.WriteLine("Initialize RabbitMQ");
-            RabbitMQ.Consumer.current = new RabbitMQ.Consumer();
-            RabbitMQ.Consumer.current.Setup("ArticleSyndication");
+            Consumer.current = new Consumer();
+            Consumer.current.Setup("ArticleSyndication");
 
             CreateHostBuilder(args).Build().Run();
         }

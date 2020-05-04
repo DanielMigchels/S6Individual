@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SiteService.Models;
+using Models;
 
 namespace SiteService
 {

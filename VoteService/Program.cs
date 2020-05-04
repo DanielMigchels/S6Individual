@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Shared.RabbitMQ;
 
 namespace VoteService
 {
@@ -18,8 +19,8 @@ namespace VoteService
             VoteServiceContext.current.Database.EnsureCreated();
 
             Console.WriteLine("Initialize RabbitMQ");
-            RabbitMQ.Consumer.current = new RabbitMQ.Consumer();
-            RabbitMQ.Consumer.current.Setup("Vote");
+            Consumer.current = new Consumer();
+            Consumer.current.Setup("Vote");
 
             CreateHostBuilder(args).Build().Run();
         }

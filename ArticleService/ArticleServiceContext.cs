@@ -1,4 +1,4 @@
-﻿using ArticleService.Models;
+﻿using Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

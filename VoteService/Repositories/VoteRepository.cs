@@ -1,4 +1,4 @@
-﻿using VoteService.Models;
+﻿using Models;
 using VoteService.Repositories.Context;
 using System;
 using System.Collections.Generic;

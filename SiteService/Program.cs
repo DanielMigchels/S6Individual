@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Shared.RabbitMQ;
 
 namespace SiteService
 {
@@ -18,8 +19,8 @@ namespace SiteService
             SiteServiceContext.current.Database.EnsureCreated();
 
             Console.WriteLine("Initialize RabbitMQ");
-            RabbitMQ.Consumer.current = new RabbitMQ.Consumer();
-            RabbitMQ.Consumer.current.Setup("Site");
+            Consumer.current = new Consumer();
+            Consumer.current.Setup("Site");
             
             CreateHostBuilder(args).Build().Run();
         }
