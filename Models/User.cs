@@ -10,5 +10,15 @@ namespace Models
         public int Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+
+        public User Copy()
+        {
+            return new User()
+            {
+                Id = this.Id,
+                Username = this.Username,
+                Password = this.Password
+            };
+        }
     }
 }

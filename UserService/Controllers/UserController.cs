@@ -22,21 +22,40 @@ namespace UserService.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginViewModel value)
         {
-            User user = userRepository.Get(value.username);
-
-            if (Utilities.Pbkdf2Utility.ValidatePassword(value.password, user.Password))
+            try
             {
-                string jwt = JwtUtility.GenerateJwt(user);
+                User user = userRepository.Get(value.username).Copy();
 
-                return Ok(jwt);
+                if (Utilities.Pbkdf2Utility.ValidatePassword(value.password, user.Password))
+                {
+                    user.Password = string.Empty;
+
+                    string jwt = JwtUtility.GenerateJwt(user);
+
+                    LoggedInViewModel loggedInViewModel = new LoggedInViewModel()
+                    {
+                        JWT = jwt,
+                        User = user
+                    };
+
+                    return Ok(loggedInViewModel);
+                }
             }
-
-            return Forbid();
+            catch {  }
+            
+            return BadRequest("Invalid Username or Password");
         }
 
         [HttpPost("register")]
         public IActionResult Register([FromBody] User value)
         {
+            try
+            {
+                User user = userRepository.Get(value.Username).Copy();
+                BadRequest("User already exists.");
+            }
+            catch { }
+
             value.Password = Utilities.Pbkdf2Utility.HashPassword(value.Password);
 
             userRepository.Post(value);
