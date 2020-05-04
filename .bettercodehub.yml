@@ -6,3 +6,6 @@ languages:
       - .*Startup\.cs
       - .*Program\.cs
       - .*Context\.cs
+  test:
+    include:
+      - *test\.cs
