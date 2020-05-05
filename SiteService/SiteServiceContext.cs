@@ -34,6 +34,9 @@ namespace SiteService
             modelBuilder.Entity<Site>(entity =>
             {
                 entity.HasKey(e => e.Id);
+                entity.Property(e => e.UserId).IsRequired();
+                entity.Property(e => e.DomainName).IsRequired();
+                entity.Property(e => e.Created).IsRequired();
             });
         }
     }
