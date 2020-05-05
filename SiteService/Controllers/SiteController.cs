@@ -15,7 +15,6 @@ namespace SiteService.Controllers
     {
         SiteRepository siteRepository = new SiteRepository();
 
-        // GET: api/Site
         [HttpGet]
         public IEnumerable<Site> Get()
         {
@@ -31,23 +30,22 @@ namespace SiteService.Controllers
 
         // POST: api/Site
         [HttpPost]
-        public void Post([FromBody] Site value)
+        public IActionResult Post([FromBody] Site value, [FromHeader] string jwt)
         {
+            int userId = 0;
+            try
+            {
+                userId = Shared.Jwt.JwtUtility.ReadJwt(jwt);
+            }
+            catch { return BadRequest("Not Authorized."); }
+
+            value.Id = 0;
+            value.UserId = userId;
+            value.Created = DateTime.Now;
+
             siteRepository.Post(value);
-        }
 
-        // PUT: api/Site/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Site value)
-        {
-            siteRepository.Put(id, value);
-        }
-
-        // DELETE: api/Site/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-            siteRepository.Delete(id);
+            return Ok();
         }
     }
 }
