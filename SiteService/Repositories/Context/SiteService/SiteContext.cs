@@ -15,9 +15,19 @@ namespace SiteService.Repositories.Context.SiteService
             SiteServiceContext.current.SaveChanges();
         }
 
+        public IEnumerable<Site> Get(int Page, int PageSize)
+        {
+            return SiteServiceContext.current.Site.Skip(Page * PageSize).Take(PageSize);
+        }
+
         public IEnumerable<Site> Get()
         {
             return SiteServiceContext.current.Site;
+        }
+
+        public Site Get(string domainName)
+        {
+            return SiteServiceContext.current.Site.Single(p => p.DomainName == domainName);
         }
 
         public Site Get(int id)

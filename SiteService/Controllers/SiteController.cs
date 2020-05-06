@@ -15,6 +15,12 @@ namespace SiteService.Controllers
     {
         SiteRepository siteRepository = new SiteRepository();
 
+        [HttpGet("/Page/{page}/Length/{pageLength}")]
+        public IEnumerable<Site> Get(int page, int pageLength)
+        {
+            return siteRepository.Get(page, pageLength);
+        }
+
         [HttpGet]
         public IEnumerable<Site> Get()
         {
@@ -22,7 +28,7 @@ namespace SiteService.Controllers
         }
 
         // GET: api/Site/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public Site Get(int id)
         {
             return siteRepository.Get(id);
@@ -38,6 +44,13 @@ namespace SiteService.Controllers
                 userId = Shared.Jwt.JwtUtility.ReadJwt(jwt);
             }
             catch { return BadRequest("Not Authorized."); }
+
+            try
+            {
+                Site site = siteRepository.Get(value.DomainName);
+                return BadRequest("Domain already exists.");
+            }
+            catch {  }
 
             value.Id = 0;
             value.UserId = userId;
