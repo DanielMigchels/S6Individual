@@ -15,7 +15,7 @@ namespace SiteService.Controllers
     {
         SiteRepository siteRepository = new SiteRepository();
 
-        [HttpGet("/Page/{page}/Length/{pageLength}")]
+        [HttpGet("Page/{page}/Length/{pageLength}")]
         public IEnumerable<Site> Get(int page, int pageLength)
         {
             return siteRepository.Get(page, pageLength);
