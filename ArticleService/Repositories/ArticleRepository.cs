@@ -12,6 +12,8 @@ namespace ArticleService.Repositories
         IArticleContext context = new Context.ArticleService.ArticleContext();
 
         public IEnumerable<Article> Get() => context.Get();
+        public IEnumerable<Article> GetSite(int siteId) => context.GetSite(siteId);
+        public IEnumerable<Article> GetSite(int siteId, int page, int pageSize) => context.GetSite(siteId, page, pageSize);
         public Article Get(int id) => context.Get(id);
         public void Post(Article value) => context.Post(value);
         public void Put(int id, Article value) => context.Put(id, value);

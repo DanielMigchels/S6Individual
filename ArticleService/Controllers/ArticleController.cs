@@ -15,39 +15,35 @@ namespace ArticleService.Controllers
     {
         ArticleRepository articleRepository = new ArticleRepository();
 
-        // GET: api/Article
-        [HttpGet]
-        public IEnumerable<Article> Get()
+        [HttpGet("Site/{id}")]
+        public IEnumerable<Article> GetSite(int id)
         {
-            return articleRepository.Get();
+            return articleRepository.GetSite(id);
         }
 
-        // GET: api/Article/5
-        [HttpGet("{id}", Name = "Get")]
-        public Article Get(int id)
+        [HttpGet("Site/{id}/Page/{page}/PageSize/{pageSize}")]
+        public IEnumerable<Article> GetSite(int id,int page, int pageSize)
         {
-            return articleRepository.Get(id);
+            return articleRepository.GetSite(id, page, pageSize);
         }
 
-        // POST: api/Article
         [HttpPost]
-        public void Post([FromBody] Article value)
+        public IActionResult Post([FromBody] Article value, [FromHeader] string jwt)
         {
+            int userId = 0;
+            try
+            {
+                userId = Shared.Jwt.JwtUtility.ReadJwt(jwt);
+            }
+            catch { return BadRequest("Not Authorized."); }
+
+            value.Id = 0;
+            value.UserId = userId;
+            value.Created = DateTime.Now;
+
             articleRepository.Post(value);
-        }
 
-        // PUT: api/Article/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Article value)
-        {
-            articleRepository.Put(id, value);
-        }
-
-        // DELETE: api/Article/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-            articleRepository.Delete(id);
+            return Ok();
         }
     }
 }

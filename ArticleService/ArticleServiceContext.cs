@@ -38,6 +38,10 @@ namespace ArticleService
             modelBuilder.Entity<Article>(entity =>
             {
                 entity.HasKey(e => e.Id);
+                entity.Property(e => e.UserId).IsRequired();
+                entity.Property(e => e.SiteId).IsRequired();
+                entity.Property(e => e.URI).IsRequired();
+                entity.Property(e => e.Created).IsRequired();
             });
         }
     }

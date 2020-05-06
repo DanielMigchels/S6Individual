@@ -9,6 +9,8 @@ namespace ArticleService.Repositories.Context
     public interface IArticleContext
     {
         public IEnumerable<Article> Get();
+        public IEnumerable<Article> GetSite(int siteId);
+        public IEnumerable<Article> GetSite(int siteId, int page, int pageSize);
         public Article Get(int id);
         public void Post(Article value);
         public void Put(int id, Article value);

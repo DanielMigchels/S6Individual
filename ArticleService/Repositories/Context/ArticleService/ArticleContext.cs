@@ -25,6 +25,16 @@ namespace ArticleService.Repositories.Context.ArticleService
             return ArticleServiceContext.current.Article.Single(p => p.Id == id);
         }
 
+        public IEnumerable<Article> GetSite(int siteId)
+        {
+            return ArticleServiceContext.current.Article.Where(p => p.SiteId == siteId);
+        }
+
+        public IEnumerable<Article> GetSite(int siteId, int page, int pageSize)
+        {
+            return ArticleServiceContext.current.Article.Where(p => p.SiteId == siteId).Skip(page * pageSize).Take(pageSize);
+        }
+
         public void Post(Article value)
         {
             ArticleServiceContext.current.Article.Add(value);
