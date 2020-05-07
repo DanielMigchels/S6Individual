@@ -28,7 +28,7 @@ namespace VoteService.Controllers
 
             return Ok(new VoteResultViewModel()
             {
-                Percentage = (100 / votes.Where(vote => vote.Rating == 1).Count() / votes.Count()) * votes.Count(),
+                Percentage = (100 / votes.Count()) * votes.Where(vote => vote.Rating == 1).Count(),
                 Count = votes.Count()
             });
         }
