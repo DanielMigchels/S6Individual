@@ -6,6 +6,7 @@ using Models;
 using VoteService.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using VoteService.ViewModels;
 
 namespace VoteService.Controllers
 {
@@ -13,41 +14,47 @@ namespace VoteService.Controllers
     [Route("[controller]")]
     public class VoteController : ControllerBase
     {
-        VoteRepository VoteRepository = new VoteRepository();
+        VoteRepository voteRepository = new VoteRepository();
 
-        // GET: api/Vote
-        [HttpGet]
-        public IEnumerable<Vote> Get()
+        [HttpGet("{articleId}")]
+        public VoteResultViewModel Get(int articleId)
         {
-            return VoteRepository.Get();
+            IEnumerable<Vote> votes = voteRepository.GetArticle(articleId);
+
+            return new VoteResultViewModel()
+            {
+                Percentage = (100 / votes.Where(vote => vote.Rating == 1).Count() / votes.Count()) * votes.Count(),
+                Count = votes.Count()
+            };
         }
 
-        // GET: api/Vote/5
-        [HttpGet("{id}", Name = "Get")]
-        public Vote Get(int id)
-        {
-            return VoteRepository.Get(id);
-        }
-
-        // POST: api/Vote
         [HttpPost]
-        public void Post([FromBody] Vote value)
+        public IActionResult Post([FromBody] Vote value, [FromHeader] string jwt)
         {
-            VoteRepository.Post(value);
+            int userId = 0;
+            try
+            {
+                userId = Shared.Jwt.JwtUtility.ReadJwt(jwt);
+            }
+            catch { return BadRequest("Not Authorized."); }
+
+            IEnumerable<Vote> votes = voteRepository.GetUser(userId);
+            foreach(Vote vote in votes)
+            {
+                if (vote.ArticleId == value.ArticleId)
+                {
+                    return BadRequest("Already voted for this article.");
+                }
+            }
+
+            value.Id = 0;
+            value.UserId = userId;
+            value.Created = DateTime.Now;
+
+            voteRepository.Post(value);
+
+            return Ok();
         }
 
-        // PUT: api/Vote/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Vote value)
-        {
-            VoteRepository.Put(id, value);
-        }
-
-        // DELETE: api/Vote/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-            VoteRepository.Delete(id);
-        }
     }
 }

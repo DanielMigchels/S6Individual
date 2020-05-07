@@ -10,6 +10,8 @@ namespace VoteService.Repositories.Context
     {
         public IEnumerable<Vote> Get();
         public Vote Get(int id);
+        public IEnumerable<Vote> GetArticle(int articleId);
+        public IEnumerable<Vote> GetUser(int userId);
         public void Post(Vote value);
         public void Put(int id, Vote value);
         public void Delete(int id);

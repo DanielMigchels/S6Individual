@@ -10,7 +10,6 @@ namespace ArticleService.Repositories
     public class ArticleRepository
     {
         IArticleContext context = new Context.ArticleService.ArticleContext();
-
         public IEnumerable<Article> Get() => context.Get();
         public Article Get(string url) => context.Get(url);
         public IEnumerable<Article> GetSite(int siteId) => context.GetSite(siteId);

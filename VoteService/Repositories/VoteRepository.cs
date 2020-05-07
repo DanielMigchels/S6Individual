@@ -13,6 +13,8 @@ namespace VoteService.Repositories
 
         public IEnumerable<Vote> Get() => context.Get();
         public Vote Get(int id) => context.Get(id);
+        public IEnumerable<Vote> GetArticle(int articleId) => context.GetArticle(articleId);
+        public IEnumerable<Vote> GetUser(int userid) => context.GetUser(userid);
         public void Post(Vote value) => context.Post(value);
         public void Put(int id, Vote value) => context.Put(id, value);
         public void Delete(int id) => context.Delete(id);

@@ -25,6 +25,16 @@ namespace VoteService.Repositories.Context.VoteService
             return VoteServiceContext.current.Vote.Single(p => p.Id == id);
         }
 
+        public IEnumerable<Vote> GetArticle(int articleId)
+        {
+            return VoteServiceContext.current.Vote.Where(p => p.ArticleId == articleId);
+        }
+
+        public IEnumerable<Vote> GetUser(int userId)
+        {
+            return VoteServiceContext.current.Vote.Where(p => p.UserId == userId);
+        }
+
         public void Post(Vote value)
         {
             VoteServiceContext.current.Vote.Add(value);
