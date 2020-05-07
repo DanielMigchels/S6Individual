@@ -50,6 +50,13 @@ namespace ArticleService.Controllers
             }
             catch { return BadRequest("Not Authorized."); }
 
+            try
+            {
+                articleRepository.Get(value.URI);
+                return BadRequest("Already added!");
+            }
+            catch { }
+            
             value.Id = 0;
             value.UserId = userId;
             value.Created = DateTime.Now;
