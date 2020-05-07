@@ -21,6 +21,19 @@ namespace ArticleService.Controllers
             return articleRepository.GetSite(id);
         }
 
+        [HttpGet]
+        public object GetArticle(string url)
+        {
+            try
+            {
+                return articleRepository.Get(url);
+            }
+            catch
+            {
+                return BadRequest("Not Found");
+            }
+        }
+
         [HttpGet("Site/{id}/Page/{page}/PageSize/{pageSize}")]
         public IEnumerable<Article> GetSite(int id,int page, int pageSize)
         {

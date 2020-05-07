@@ -19,6 +19,10 @@ namespace ArticleService.Repositories.Context.ArticleService
         {
             return ArticleServiceContext.current.Article;
         }
+        public Article Get(string url)
+        {
+            return ArticleServiceContext.current.Article.Single(p => p.URI == url);
+        }
 
         public Article Get(int id)
         {

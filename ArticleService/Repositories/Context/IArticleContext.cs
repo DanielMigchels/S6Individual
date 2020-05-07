@@ -9,6 +9,7 @@ namespace ArticleService.Repositories.Context
     public interface IArticleContext
     {
         public IEnumerable<Article> Get();
+        public Article Get(string url);
         public IEnumerable<Article> GetSite(int siteId);
         public IEnumerable<Article> GetSite(int siteId, int page, int pageSize);
         public Article Get(int id);
