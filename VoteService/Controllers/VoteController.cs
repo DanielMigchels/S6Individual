@@ -17,15 +17,20 @@ namespace VoteService.Controllers
         VoteRepository voteRepository = new VoteRepository();
 
         [HttpGet("{articleId}")]
-        public VoteResultViewModel Get(int articleId)
+        public IActionResult Get(int articleId)
         {
             IEnumerable<Vote> votes = voteRepository.GetArticle(articleId);
 
-            return new VoteResultViewModel()
+            if (votes.Count() == 0)
+            {
+                return BadRequest("No votes.");
+            }
+
+            return Ok(new VoteResultViewModel()
             {
                 Percentage = (100 / votes.Where(vote => vote.Rating == 1).Count() / votes.Count()) * votes.Count(),
                 Count = votes.Count()
-            };
+            });
         }
 
         [HttpPost]
