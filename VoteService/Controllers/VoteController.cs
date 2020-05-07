@@ -43,12 +43,14 @@ namespace VoteService.Controllers
             }
             catch { return BadRequest("Not Authorized."); }
 
-            IEnumerable<Vote> votes = voteRepository.GetUser(userId);
-            foreach(Vote vote in votes)
+            List<Vote> votes = voteRepository.GetUser(userId).ToList();
+            for (int i = 0; i < votes.Count(); i++)
             {
-                if (vote.ArticleId == value.ArticleId)
+                if (votes[i].ArticleId == value.ArticleId)
                 {
-                    return BadRequest("Already voted for this article.");
+                    votes[i].Rating = value.Rating;
+                    voteRepository.Put(votes[i].Id, votes[i]);
+                    return Ok("Vote Changed.");
                 }
             }
 
