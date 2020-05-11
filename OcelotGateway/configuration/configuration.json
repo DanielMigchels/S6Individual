@@ -7,7 +7,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "192.168.99.100",
-          "Port": 80
+          "Port": 9002
         }
       ],
       "UpstreamPathTemplate": "/user/{user}",
@@ -25,7 +25,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "192.168.99.100",
-          "Port": 80
+          "Port": 9004
         }
       ],
       "UpstreamPathTemplate": "/site/{site}",
@@ -43,7 +43,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "192.168.99.100",
-          "Port": 80
+          "Port": 9006
         }
       ],
       "UpstreamPathTemplate": "/article/{article}",
@@ -61,7 +61,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "192.168.99.100",
-          "Port": 80
+          "Port": 9003
         }
       ],
       "UpstreamPathTemplate": "/vote/{vote}",
