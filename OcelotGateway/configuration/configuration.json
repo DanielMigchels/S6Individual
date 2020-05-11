@@ -6,8 +6,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "userservice-service",
-          "Port": 80
+          "Host": "192.168.99.100",
+          "Port": 9002
         }
       ],
       "UpstreamPathTemplate": "/user/{user}",
@@ -24,8 +24,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "siteservice-service",
-          "Port": 80
+          "Host": "192.168.99.100",
+          "Port": 9004
         }
       ],
       "UpstreamPathTemplate": "/site/{site}",
@@ -42,8 +42,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "articleservice-service",
-          "Port": 80
+          "Host": "192.168.99.100",
+          "Port": 9006
         }
       ],
       "UpstreamPathTemplate": "/article/{article}",
@@ -60,8 +60,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "voteservice-service",
-          "Port": 80
+          "Host": "192.168.99.100",
+          "Port": 9003
         }
       ],
       "UpstreamPathTemplate": "/vote/{vote}",
