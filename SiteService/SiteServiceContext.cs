@@ -5,10 +5,10 @@ namespace SiteService
 {
     public class SiteServiceContext : DbContext
     {
-        string MySQL_Server = "192.169.99.100";
+        string MySQL_Server = "192.168.99.100";
         string MySQL_Database = "site";
-        string MySQL_Uid = "site";
-        string MySQL_Password = "site";
+        string MySQL_Uid = "root";
+        string MySQL_Password = "root";
 
         public static SiteServiceContext current;
 
