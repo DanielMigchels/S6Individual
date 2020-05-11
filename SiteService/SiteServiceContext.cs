@@ -5,12 +5,7 @@ namespace SiteService
 {
     public class SiteServiceContext : DbContext
     {
-#if DEBUG
         string MySQL_Server = "192.169.99.100";
-#else
-        string MySQL_Server = "site-mysql";
-#endif
-
         string MySQL_Database = "site";
         string MySQL_Uid = "site";
         string MySQL_Password = "site";
