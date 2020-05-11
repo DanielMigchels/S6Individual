@@ -10,7 +10,7 @@ namespace VoteService
     public class VoteServiceContext : DbContext
     {
 #if DEBUG
-        string MySQL_Server = "127.0.0.1";
+        string MySQL_Server = "192.169.99.100";
 #else
         string MySQL_Server = "vote-mysql";
 #endif
