@@ -6,7 +6,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "userservice-service",
+          "Host": "192.168.99.100",
           "Port": 80
         }
       ],
@@ -24,7 +24,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "siteservice-service",
+          "Host": "192.168.99.100",
           "Port": 80
         }
       ],
@@ -42,7 +42,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "articleservice-service",
+          "Host": "192.168.99.100",
           "Port": 80
         }
       ],
@@ -60,7 +60,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "voteservice-service",
+          "Host": "192.168.99.100",
           "Port": 80
         }
       ],
