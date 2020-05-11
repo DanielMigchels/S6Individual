@@ -9,12 +9,7 @@ namespace ArticleService
 {
     public class ArticleServiceContext : DbContext
     {
-#if DEBUG
         string MySQL_Server = "192.169.99.100";
-#else
-        string MySQL_Server = "article-mysql";
-#endif
-
         string MySQL_Database = "article";
         string MySQL_Uid = "article";
         string MySQL_Password = "article";

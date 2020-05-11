@@ -5,12 +5,7 @@ namespace UserService
 {
     public class UserServiceContext : DbContext
     {
-#if DEBUG
         string MySQL_Server = "192.169.99.100";
-#else
-        string MySQL_Server = "user-mysql";
-#endif
-
         string MySQL_Database = "user";
         string MySQL_Uid = "user";
         string MySQL_Password = "user";
