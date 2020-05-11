@@ -9,10 +9,10 @@ namespace ArticleService
 {
     public class ArticleServiceContext : DbContext
     {
-        string MySQL_Server = "192.169.99.100";
+        string MySQL_Server = "192.168.99.100";
         string MySQL_Database = "article";
-        string MySQL_Uid = "article";
-        string MySQL_Password = "article";
+        string MySQL_Uid = "root";
+        string MySQL_Password = "root";
 
         public static ArticleServiceContext current;
 

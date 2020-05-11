@@ -5,10 +5,10 @@ namespace UserService
 {
     public class UserServiceContext : DbContext
     {
-        string MySQL_Server = "192.169.99.100";
+        string MySQL_Server = "192.168.99.100";
         string MySQL_Database = "user";
-        string MySQL_Uid = "user";
-        string MySQL_Password = "user";
+        string MySQL_Uid = "root";
+        string MySQL_Password = "root";
 
         public static UserServiceContext current;
 

@@ -9,10 +9,10 @@ namespace VoteService
 {
     public class VoteServiceContext : DbContext
     {
-        string MySQL_Server = "192.169.99.100";
+        string MySQL_Server = "192.168.99.100";
         string MySQL_Database = "vote";
-        string MySQL_Uid = "vote";
-        string MySQL_Password = "vote";
+        string MySQL_Uid = "root";
+        string MySQL_Password = "root";
 
         public static VoteServiceContext current;
 
