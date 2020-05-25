@@ -19,6 +19,8 @@ namespace Shared.RabbitMQ
 
         private string _serviceName;
 
+        private IConnection connection;
+
         public void Setup(string serviceName)
         {
             _serviceName = serviceName;
@@ -30,7 +32,7 @@ namespace Shared.RabbitMQ
                 Password = Password
             };
 
-            var connection = connectionFactory.CreateConnection();
+            connection = connectionFactory.CreateConnection();
             var channel = connection.CreateModel();
 
             channel.ExchangeDeclare(serviceName + ".exchange", ExchangeType.Direct);
@@ -54,14 +56,6 @@ namespace Shared.RabbitMQ
 
         public void Send(string exchange, RabbitMqMessage message)
         {
-            ConnectionFactory connectionFactory = new ConnectionFactory
-            {
-                HostName = HostName,
-                UserName = UserName,
-                Password = Password
-            };
-
-            var connection = connectionFactory.CreateConnection();
             var channel = connection.CreateModel();
             var properties = channel.CreateBasicProperties();
             properties.Persistent = false;
