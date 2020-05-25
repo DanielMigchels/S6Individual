@@ -13,9 +13,8 @@ namespace Shared.RabbitMQ
 
         private const string UserName = "guest";
         private const string Password = "guest";
-        private const int Port = 5672;
 #if DEBUG
-        private const string HostName = "192.168.99.100";
+        private const string HostName = "192.168.99.100:5672";
 #else
         private const string HostName = "rabbitmq";
 #endif
@@ -25,8 +24,7 @@ namespace Shared.RabbitMQ
             {
                 HostName = HostName,
                 UserName = UserName,
-                Password = Password,
-                Port = Port
+                Password = Password
             };
 
             var connection = connectionFactory.CreateConnection();
