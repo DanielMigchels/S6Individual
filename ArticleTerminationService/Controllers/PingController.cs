@@ -8,9 +8,11 @@ using Microsoft.Extensions.Logging;
 namespace ArticleTerminationService.Controllers
 {
     [ApiController]
+
+    [Route("[controller]")]
     public class PingController : ControllerBase
     {
-        [HttpGet]
+        [HttpGet("/")]
         public IActionResult GetVersion()
         {
             return Ok("Pong!");
