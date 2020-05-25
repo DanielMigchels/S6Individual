@@ -8,19 +8,15 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Shared.RabbitMQ;
 
-namespace UserService
+namespace ArticleTerminationService
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Creates the database if not exists");
-            UserServiceContext.current = new UserServiceContext();
-            UserServiceContext.current.Database.EnsureCreated();
-            
             Console.WriteLine("Initialize RabbitMQ");
             Consumer.current = new Consumer();
-            Consumer.current.Setup("User");
+            Consumer.current.Setup("Article");
 
             CreateHostBuilder(args).Build().Run();
         }
