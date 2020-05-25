@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using ArticleTerminationService.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -14,9 +16,9 @@ namespace ArticleTerminationService
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Initialize RabbitMQ");
-            Consumer.current = new Consumer();
-            Consumer.current.Setup("ArticleTermination");
+            TerminationService terminationService = new TerminationService();
+            Thread terminationthread = new Thread(terminationService.Run);
+            terminationthread.Start();
 
             CreateHostBuilder(args).Build().Run();
         }

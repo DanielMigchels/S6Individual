@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using ArticleService.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -18,9 +20,8 @@ namespace ArticleService
             ArticleServiceContext.current = new ArticleServiceContext();
             ArticleServiceContext.current.Database.EnsureCreated();
 
-            Console.WriteLine("Initialize RabbitMQ");
-            Consumer.current = new Consumer();
-            Consumer.current.Setup("Article");
+            MessageService messageService = new MessageService();
+            messageService.Run();
 
             CreateHostBuilder(args).Build().Run();
         }

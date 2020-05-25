@@ -19,8 +19,8 @@ namespace UserService
             UserServiceContext.current.Database.EnsureCreated();
             
             Console.WriteLine("Initialize RabbitMQ");
-            Consumer.current = new Consumer();
-            Consumer.current.Setup("User");
+            Consumer consumer = new Consumer();
+            consumer.Setup("User");
 
             CreateHostBuilder(args).Build().Run();
         }
