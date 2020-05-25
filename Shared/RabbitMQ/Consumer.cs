@@ -13,11 +13,8 @@ namespace Shared.RabbitMQ
 
         private const string UserName = "guest";
         private const string Password = "guest";
-#if DEBUG
-        private const string HostName = "192.168.99.100:5672";
-#else
-        private const string HostName = "rabbitmq";
-#endif
+        private const string HostName = "192.168.99.100";
+
         public void Setup(string serviceName)
         {
             ConnectionFactory connectionFactory = new ConnectionFactory
