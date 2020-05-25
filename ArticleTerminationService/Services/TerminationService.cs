@@ -76,11 +76,29 @@ namespace ArticleTerminationService.Services
                 count++;
                 Console.Write("Testing " + count + "/" + articles.Count() + " - " + article.URI);
 
-                HttpClient client = new HttpClient();
-                var checkingResponse = await client.GetAsync(article.URI);
-                if (!checkingResponse.IsSuccessStatusCode)
+                try
                 {
-                    Console.Write("   DOWN");
+                    HttpClient client = new HttpClient();
+                    var checkingResponse = await client.GetAsync(article.URI);
+                    if (!checkingResponse.IsSuccessStatusCode)
+                    {
+                        Console.Write("   DOWN");
+
+                        RabbitMqMessage message = new RabbitMqMessage()
+                        {
+                            Action = RabbitMqAction.Delete,
+                            Data = article
+                        };
+
+                        consumer.Send("Article.exchange", message);
+
+                        Console.Write("   DELETE MESSAGE SENT");
+                    }
+                    Console.WriteLine("   UP");
+                }
+                catch
+                {
+                    Console.Write("   CRASH");
 
                     RabbitMqMessage message = new RabbitMqMessage()
                     {
@@ -92,7 +110,6 @@ namespace ArticleTerminationService.Services
 
                     Console.Write("   DELETE MESSAGE SENT");
                 }
-                Console.WriteLine("   UP");
             }
 
             Console.WriteLine("Article check finished. 10s Delay...");
