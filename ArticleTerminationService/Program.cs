@@ -16,7 +16,7 @@ namespace ArticleTerminationService
         {
             Console.WriteLine("Initialize RabbitMQ");
             Consumer.current = new Consumer();
-            Consumer.current.Setup("Article");
+            Consumer.current.Setup("ArticleTermination");
 
             CreateHostBuilder(args).Build().Run();
         }
