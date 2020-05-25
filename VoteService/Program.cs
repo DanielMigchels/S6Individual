@@ -19,8 +19,8 @@ namespace VoteService
             VoteServiceContext.current.Database.EnsureCreated();
 
             Console.WriteLine("Initialize RabbitMQ");
-            Consumer.current = new Consumer();
-            Consumer.current.Setup("Vote");
+            Consumer consumer = new Consumer();
+            consumer.Setup("Vote");
 
             CreateHostBuilder(args).Build().Run();
         }
