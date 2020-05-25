@@ -18,9 +18,9 @@ namespace ArticleService
             ArticleServiceContext.current = new ArticleServiceContext();
             ArticleServiceContext.current.Database.EnsureCreated();
 
-            //Console.WriteLine("Initialize RabbitMQ");
-            //Consumer.current = new Consumer();
-            //Consumer.current.Setup("Article");
+            Console.WriteLine("Initialize RabbitMQ");
+            Consumer.current = new Consumer();
+            Consumer.current.Setup("Article");
 
             CreateHostBuilder(args).Build().Run();
         }
