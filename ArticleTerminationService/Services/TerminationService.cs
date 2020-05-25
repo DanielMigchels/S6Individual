@@ -83,15 +83,7 @@ namespace ArticleTerminationService.Services
                     if (!checkingResponse.IsSuccessStatusCode)
                     {
                         Console.Write("   DOWN");
-
-                        RabbitMqMessage message = new RabbitMqMessage()
-                        {
-                            Action = RabbitMqAction.Delete,
-                            Data = article
-                        };
-
-                        consumer.Send("Article.exchange", message);
-
+                        DeleteArticle(article);
                         Console.Write("   DELETE MESSAGE SENT");
                     }
                     Console.WriteLine("   UP");
@@ -99,15 +91,7 @@ namespace ArticleTerminationService.Services
                 catch
                 {
                     Console.Write("   CRASH");
-
-                    RabbitMqMessage message = new RabbitMqMessage()
-                    {
-                        Action = RabbitMqAction.Delete,
-                        Data = article
-                    };
-
-                    consumer.Send("Article.exchange", message);
-
+                    DeleteArticle(article);
                     Console.Write("   DELETE MESSAGE SENT");
                 }
             }
@@ -115,6 +99,25 @@ namespace ArticleTerminationService.Services
             Console.WriteLine("Article check finished. 10s Delay...");
             Thread.Sleep(10000);
             RequestArticles();
+        }
+
+        private void DeleteArticle(Article article)
+        {
+            RabbitMqMessage message = new RabbitMqMessage()
+            {
+                Action = RabbitMqAction.Delete,
+                Data = article
+            };
+
+            consumer.Send("Article.exchange", message);
+
+            message = new RabbitMqMessage()
+            {
+                Action = RabbitMqAction.Delete,
+                Data = article.Id
+            };
+
+            consumer.Send("Vote.exchange", message);
         }
     }
 }
