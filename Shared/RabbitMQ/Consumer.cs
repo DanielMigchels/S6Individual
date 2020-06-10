@@ -11,7 +11,7 @@ namespace Shared.RabbitMQ
     {
         private const string UserName = "user";
         private const string Password = "user";
-        private const string HostName = "fakenewsrabbitmq";
+        private const string HostName = "rabbitmq";
 
         public delegate void RabbitReceivedEvent(RabbitMqMessage message, string consumer);
 
@@ -21,32 +21,43 @@ namespace Shared.RabbitMQ
 
         private IConnection connection;
 
+        private bool Connected = false;
+
         public void Setup(string serviceName)
         {
             _serviceName = serviceName;
 
-            ConnectionFactory connectionFactory = new ConnectionFactory
+            try
             {
-                HostName = HostName,
-                UserName = UserName,
-                Password = Password
-            };
+                ConnectionFactory connectionFactory = new ConnectionFactory
+                {
+                    HostName = HostName,
+                    UserName = UserName,
+                    Password = Password
+                };
 
-            connection = connectionFactory.CreateConnection();
-            var channel = connection.CreateModel();
+                connection = connectionFactory.CreateConnection();
+                var channel = connection.CreateModel();
 
-            channel.ExchangeDeclare(serviceName + ".exchange", ExchangeType.Direct);
-            Console.WriteLine("Creating Exchange");
+                channel.ExchangeDeclare(serviceName + ".exchange", ExchangeType.Direct);
+                Console.WriteLine("Creating Exchange");
 
-            channel.QueueDeclare(serviceName + ".queue", true, false, false, null);
-            Console.WriteLine("Creating Queue");
+                channel.QueueDeclare(serviceName + ".queue", true, false, false, null);
+                Console.WriteLine("Creating Queue");
 
-            channel.QueueBind(serviceName + ".queue", serviceName + ".exchange", "key");
+                channel.QueueBind(serviceName + ".queue", serviceName + ".exchange", "key");
 
-            channel.BasicQos(0, 1, false);
-            MessageReceiver messageReceiver = new MessageReceiver(channel);
-            messageReceiver.RabbitReceived += MessageReceiver_RabbitReceived;
-            channel.BasicConsume(serviceName + ".queue", false, messageReceiver);
+                channel.BasicQos(0, 1, false);
+                MessageReceiver messageReceiver = new MessageReceiver(channel);
+                messageReceiver.RabbitReceived += MessageReceiver_RabbitReceived;
+                channel.BasicConsume(serviceName + ".queue", false, messageReceiver);
+                Connected = true;
+            }
+            catch (Exception e)
+            {
+                Connected = false;
+                Console.WriteLine("RabbitMQ Unavailable. " + e.Message);
+            }
         }
 
         private void MessageReceiver_RabbitReceived(RabbitMqMessage message, string consumer)
@@ -56,17 +67,24 @@ namespace Shared.RabbitMQ
 
         public void Send(string exchange, RabbitMqMessage message)
         {
-            var channel = connection.CreateModel();
-            var properties = channel.CreateBasicProperties();
-            properties.Persistent = false;
+            if (Connected)
+            {
+                var channel = connection.CreateModel();
+                var properties = channel.CreateBasicProperties();
+                properties.Persistent = false;
 
-            message.Sender = _serviceName;
+                message.Sender = _serviceName;
 
-            string data = Newtonsoft.Json.JsonConvert.SerializeObject(message);
+                string data = Newtonsoft.Json.JsonConvert.SerializeObject(message);
 
-            byte[] messagebuffer = Encoding.Default.GetBytes(data);
-            channel.BasicPublish(exchange, "key", properties, messagebuffer);
-            Console.WriteLine("RabbitMq: Data Transmitted.");
+                byte[] messagebuffer = Encoding.Default.GetBytes(data);
+                channel.BasicPublish(exchange, "key", properties, messagebuffer);
+                Console.WriteLine("RabbitMq: Data Transmitted.");
+            }
+            else
+            {
+                Console.WriteLine("RABBITMQ - Can't send message, not connected.");
+            }
         }
 
         private void OnRabbitReceived(RabbitMqMessage message, string consumer)
