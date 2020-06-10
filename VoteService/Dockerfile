@@ -11,6 +11,7 @@ COPY ["VoteService/VoteService.csproj", "VoteService/"]
 RUN dotnet restore "VoteService/VoteService.csproj"
 COPY . .
 WORKDIR "/src/VoteService"
+RUN dotnet test ../TestProject/TestProject.csproj
 RUN dotnet build "VoteService.csproj" -c Release -o /app/build
 
 FROM build AS publish
