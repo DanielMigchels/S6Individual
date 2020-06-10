@@ -9,9 +9,9 @@ namespace Shared.RabbitMQ
 {
     public class Consumer
     {
-        private const string UserName = "guest";
-        private const string Password = "guest";
-        private const string HostName = "rabbitmq";
+        private const string UserName = "user";
+        private const string Password = "user";
+        private const string HostName = "fakenewsrabbitmq";
 
         public delegate void RabbitReceivedEvent(RabbitMqMessage message, string consumer);
 
