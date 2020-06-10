@@ -11,6 +11,7 @@ COPY ["ArticleTerminationService/ArticleTerminationService.csproj", "ArticleTerm
 RUN dotnet restore "ArticleTerminationService/ArticleTerminationService.csproj"
 COPY . .
 WORKDIR "/src/ArticleTerminationService"
+RUN dotnet test ../TestProject/TestProject.csproj
 RUN dotnet build "ArticleTerminationService.csproj" -c Release -o /app/build
 
 FROM build AS publish

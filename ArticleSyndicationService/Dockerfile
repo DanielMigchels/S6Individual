@@ -11,6 +11,7 @@ COPY ["ArticleSyndicationService/ArticleSyndicationService.csproj", "ArticleSynd
 RUN dotnet restore "ArticleSyndicationService/ArticleSyndicationService.csproj"
 COPY . .
 WORKDIR "/src/ArticleSyndicationService"
+RUN dotnet test ../TestProject/TestProject.csproj
 RUN dotnet build "ArticleSyndicationService.csproj" -c Release -o /app/build
 
 FROM build AS publish

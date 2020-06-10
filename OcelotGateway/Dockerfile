@@ -11,6 +11,7 @@ COPY ["OcelotGateway/OcelotGateway.csproj", "OcelotGateway/"]
 RUN dotnet restore "OcelotGateway/OcelotGateway.csproj"
 COPY . .
 WORKDIR "/src/OcelotGateway"
+RUN dotnet test ../TestProject/TestProject.csproj
 RUN dotnet build "OcelotGateway.csproj" -c Release -o /app/build
 
 FROM build AS publish

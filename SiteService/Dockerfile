@@ -11,6 +11,7 @@ COPY ["SiteService/SiteService.csproj", "SiteService/"]
 RUN dotnet restore "SiteService/SiteService.csproj"
 COPY . .
 WORKDIR "/src/SiteService"
+RUN dotnet test ../TestProject/TestProject.csproj
 RUN dotnet build "SiteService.csproj" -c Release -o /app/build
 
 FROM build AS publish
