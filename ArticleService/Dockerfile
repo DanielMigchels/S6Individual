@@ -11,6 +11,7 @@ COPY ["ArticleService/ArticleService.csproj", "ArticleService/"]
 RUN dotnet restore "ArticleService/ArticleService.csproj"
 COPY . .
 WORKDIR "/src/ArticleService"
+RUN dotnet test ../TestProject/TestProject.csproj
 RUN dotnet build "ArticleService.csproj" -c Release -o /app/build
 
 FROM build AS publish

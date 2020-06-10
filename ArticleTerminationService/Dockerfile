@@ -7,17 +7,17 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["OcelotGateway/OcelotGateway.csproj", "OcelotGateway/"]
-RUN dotnet restore "OcelotGateway/OcelotGateway.csproj"
+COPY ["ArticleTerminationService/ArticleTerminationService.csproj", "ArticleTerminationService/"]
+RUN dotnet restore "ArticleTerminationService/ArticleTerminationService.csproj"
 COPY . .
-WORKDIR "/src/OcelotGateway"
+WORKDIR "/src/ArticleTerminationService"
 RUN dotnet test ../TestProject/TestProject.csproj
-RUN dotnet build "OcelotGateway.csproj" -c Release -o /app/build
+RUN dotnet build "ArticleTerminationService.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "OcelotGateway.csproj" -c Release -o /app/publish
+RUN dotnet publish "ArticleTerminationService.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "OcelotGateway.dll"]
+ENTRYPOINT ["dotnet", "ArticleTerminationService.dll"]

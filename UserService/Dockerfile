@@ -11,6 +11,7 @@ COPY ["UserService/UserService.csproj", "UserService/"]
 RUN dotnet restore "UserService/UserService.csproj"
 COPY . .
 WORKDIR "/src/UserService"
+RUN dotnet test ../TestProject/TestProject.csproj
 RUN dotnet build "UserService.csproj" -c Release -o /app/build
 
 FROM build AS publish

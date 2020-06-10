@@ -7,8 +7,10 @@ namespace Shared.RabbitMQ
 {
     public class RabbitMqMessage
     {
-        public string Action { get; set; }
+        public RabbitMqAction Action { get; set; }
 
         public object Data { get; set; }
+
+        public string Sender { get; set; }
     }
 }
